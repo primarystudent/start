@@ -9,9 +9,15 @@ public class FutureTaskDemo {
 	
 	public static void main(String[] args) {
 		FutureTaskDemo demo = new FutureTaskDemo();
-		System.out.println(LocalTime.now()+"over");
-		demo.get();
-		System.out.println(LocalTime.now()+"over");
+		System.out.println(LocalTime.now()+"start");
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				demo.get();
+				System.out.println(LocalTime.now()+"over");
+			}
+		}).start();
 		demo.start();
 		
 	}
@@ -21,7 +27,7 @@ public class FutureTaskDemo {
 	}
 	public ProductInfo loadProductInfo() throws InterruptedException{
 		System.out.println("load productInfo....");
-		Thread.sleep(1000*10);
+		Thread.currentThread().sleep(1000*10);
 		return new ProductInfo();
 	}
 	
